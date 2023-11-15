@@ -51,4 +51,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
+          FETCH_ALL_TAGS: true
           # DEFAULT_BRANCH: master
