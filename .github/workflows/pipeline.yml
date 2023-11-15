@@ -30,7 +30,7 @@ jobs:
           command: npm run test:e2e
           start: npm run start-prod
           wait-on: http://localhost:5000
-  main:
+  deploy_to_render:
     needs: [simple_deployment_pipeline]
     if: ${{ github.event_name == 'push' }}
     name: Deploy to Render
@@ -39,7 +39,7 @@ jobs:
       - name: Trigger render.com deployment
         run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
   tag_release:
-    needs: [simple_deployment_pipeline]
+    needs: [simple_deployment_pipeline, deploy_to_render]
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
