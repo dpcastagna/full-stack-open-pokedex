@@ -26,7 +26,7 @@ jobs:
         env:
           COMMIT_MESSAGES_STRING: ${{ join(toJson(github.event.commits.*.message)) }}
         run: echo "$COMMIT_MESSAGES_STRING"
-      - name: commit messages to string includes \#skip
+      - name: commit messages to string constains \#skip
         env:
-          COMMIT_MESSAGES_STRING_SKIP_FOUND: ${{ includes(join(toJson(github.event.commits.*.message)), '#skip') }}
+          COMMIT_MESSAGES_STRING_SKIP_FOUND: ${{ constains(join(toJson(github.event.commits.*.message)), '#skip') }}
         run: echo "$COMMIT_MESSAGES_STRING_SKIP_FOUND"
