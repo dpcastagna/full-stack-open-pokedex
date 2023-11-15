@@ -51,6 +51,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
-          INITIAL_VERSION: 0.1.1
+          INITIAL_VERSION: 0.1.2
           # FETCH_ALL_TAGS: true
           # DEFAULT_BRANCH: master
