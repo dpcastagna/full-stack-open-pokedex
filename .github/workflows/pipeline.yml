@@ -34,13 +34,13 @@ jobs:
     if: ${{ contains(join(toJson(github.event.commits.*.message)), '#skip') }}
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Checking for \#skip in commit message
         env:
           COMMIT_MESSAGES_STRING: ${{ join(toJson(github.event.commits.*.message)) }}
         run: echo "$COMMIT_MESSAGES_STRING" contains \#skip
   deploy_to_render:
-    needs: [skip-check]
+    needs: [skip-check, simple_deployment_pipeline]
     if: ${{ github.event_name == 'push' && !contains(join(toJson(github.event.commits.*.message)), '#skip') }}
     name: Deploy to Render
     runs-on: ubuntu-20.04
