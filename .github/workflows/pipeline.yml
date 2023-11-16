@@ -31,14 +31,14 @@ jobs:
           start: npm run start-prod
           wait-on: http://localhost:5000
   skip-check:
-    if: ${{ contains(join(toJson(github.event.commits.*.message)), '#skip') }}
+    if: ${{ !contains(join(toJson(github.event.commits.*.message)), '#skip') }}
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
       - name: Checking for \#skip in commit message
         env:
           COMMIT_MESSAGES_STRING: ${{ join(toJson(github.event.commits.*.message)) }}
-        run: echo "$COMMIT_MESSAGES_STRING" contains \#skip
+        run: echo "$COMMIT_MESSAGES_STRING" does not contain \#skip
   deploy_to_render:
     needs: [skip-check, simple_deployment_pipeline]
     if: ${{ github.event_name == 'push' && !contains(join(toJson(github.event.commits.*.message)), '#skip') }}
