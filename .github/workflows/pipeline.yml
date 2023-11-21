@@ -39,8 +39,7 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
           COMMIT_MESSAGES_STRING: ${{ join(toJson(github.event.commits.*.message)) }}
-        run: echo "$COMMIT_MESSAGES_STRING" does not contain \#skip
-             "GITHUB_CONTEXT"
+        run: echo "$COMMIT_MESSAGES_STRING" does not contain \#skip "GITHUB_CONTEXT"
   deploy_to_render:
     needs: [skip-check, simple_deployment_pipeline]
     if: ${{ github.event_name == 'push' && !contains(join(toJson(github.event.commits.*.message)), '#skip') }}
