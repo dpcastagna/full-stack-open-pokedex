@@ -31,13 +31,13 @@ jobs:
           command: npm run test:e2e
           start: npm run start-prod
           wait-on: http://localhost:5000
-      - name: pipeline success
-        if: ${{ success() }}
-        # env:
-        #   COMMIT_MESSAGES_STRING: ${{ join(toJson(github.event.commits.*.message)) }}
-        run: echo Pipeline success
       - name: pipeline failure
-        if: ${{ failure() }}
+        if: ${{ success() }}
+        uses: rjstone/discord-webhook-notify@v1
+        with:
+          severity: error
+          details: Build fail test
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
         # env:
         #   COMMIT_MESSAGES_STRING: ${{ join(toJson(github.event.commits.*.message)) }}
         run: echo Pipeline failure
