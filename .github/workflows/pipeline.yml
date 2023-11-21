@@ -38,9 +38,6 @@ jobs:
           severity: error
           details: Build fail test
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-        # env:
-        #   COMMIT_MESSAGES_STRING: ${{ join(toJson(github.event.commits.*.message)) }}
-        run: echo Pipeline failure
   skip-check:
     if: ${{ !contains(join(toJson(github.event.commits.*.message)), '#skip') }}
     runs-on: ubuntu-20.04
