@@ -34,9 +34,15 @@ jobs:
       - name: pipeline failure
         if: ${{ success() }}
         uses: rjstone/discord-webhook-notify@v1
+        env:
+          GITHUB_SHA: ${{ github.sha }}
+          GITHUB_REPOSITY_OWNER:  ${{ github.repository_owner }}
         with:
           severity: error
-          details: Build fail test
+          description: commit
+          details: '${{ github.sha }} by ${{ github.repository_owner }} failed'
+          text: Build failed
+          footer: 'Severity: Error'
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
   skip-check:
     if: ${{ !contains(join(toJson(github.event.commits.*.message)), '#skip') }}
