@@ -41,7 +41,7 @@ jobs:
           severity: error
           description: commit
           details: '${{ github.sha }} by ${{ github.repository_owner }} failed'
-          text: Build failed
+          text: Build ${{ github.sha }} by ${{ github.repository_owner }} failed
           footer: 'Severity: Error'
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
   skip-check:
